@@ -9,4 +9,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
 
+    /**
+     * Méthode permettant de retrouver un utilisateur dans la BDD via son username
+     * @param username
+     * @return Utilisateur enregistrer en BDD
+     */
+    User findByUsername(String username);
 }
