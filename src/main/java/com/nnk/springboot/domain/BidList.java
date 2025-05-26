@@ -76,6 +76,12 @@ public class BidList {
     @Column(name = "side")
     private String side;
 
+    public BidList(String account, String type, Double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
+
     public Integer getBidListId() {
         return bidListId;
     }
