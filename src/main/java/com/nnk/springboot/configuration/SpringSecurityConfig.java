@@ -26,19 +26,19 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/home", "/").permitAll()
                 .requestMatchers("/user/add").hasRole("USER")
                 .anyRequest().authenticated()
         )
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
+                        .loginPage("/")
+                        .loginProcessingUrl("/")
                         .defaultSuccessUrl("/user/add", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .permitAll()
                 )
                 .csrf(AbstractHttpConfigurer::disable);
