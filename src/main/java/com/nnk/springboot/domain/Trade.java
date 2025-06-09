@@ -11,7 +11,7 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tradeId")
+    @Column(name = "trade_id")
     private Integer tradeId;
 
     @Column(name = "account")
@@ -73,6 +73,10 @@ public class Trade {
 
     @Column(name = "side")
     private String side;
+
+    public Trade() {
+        super();
+    }
 
     public Trade(String account, String type) {
         this.account = account;
