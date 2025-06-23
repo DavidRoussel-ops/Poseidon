@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
+import java.sql.Timestamp;
 
 
 @Controller
@@ -24,12 +23,13 @@ public class BidListController {
     public String home(Model model)
     {
         // TODO: call service find all bids to show to the view
-        model.addAttribute("bidlists", bidListService.getBidLists());
+        model.addAttribute("bidLists", bidListService.getBidLists());
         return "bidList/list";
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
+    public String addBidForm(Model model) {
+        model.addAttribute("bidList", new BidList());
         return "bidList/add";
     }
 
@@ -38,7 +38,7 @@ public class BidListController {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
             bidListService.addBidList(bid);
-            model.addAttribute("bidlists", bidListService.getBidLists());
+            //model.addAttribute("bidlists", bidListService.getBidLists());
             return "redirect:/bidList/list";
         }
         return "bidList/add";
