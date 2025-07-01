@@ -30,16 +30,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("C'est utilisateur n'existe pas.");
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities());
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user));
         }
     }
 
     /**
-     * Méthode concernant les autorisations données aux tilisateur
+     * Méthode concernant les autorisations données aux utilisateurs
      */
-    private List<GrantedAuthority> getGrantedAuthorities() {
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return authorities;
     }
 }
