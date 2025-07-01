@@ -26,16 +26,19 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/admin/home", "/user/list", "/error", "/user/add", "/bidList/add", "/bidList/list", "/bidList/validate").permitAll()
-                .requestMatchers("/login").hasRole("USER")
+                .requestMatchers("/", "/app/login", "user/add", "user/list", "/app/secure/article-details").permitAll()
+                //.requestMatchers("/", "/app/login").hasRole("USER")
                 .anyRequest().authenticated()
         )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/app/error"))
                 .formLogin(form -> form
-                        .loginPage("/")
-                        .loginProcessingUrl("/")
-                        .defaultSuccessUrl("/user/add", true)
+                        .loginPage("/app/login")
+                        .loginProcessingUrl("/app/login")
+                        .defaultSuccessUrl("/bidList/list", true)
                         .permitAll()
                 )
+                .userDetailsService(customUserDetailsService)
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
