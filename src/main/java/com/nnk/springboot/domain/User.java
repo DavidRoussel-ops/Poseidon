@@ -2,8 +2,12 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -56,5 +60,12 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public User(String role, String password, String fullname, String username) {
+        this.role = role;
+        this.password = password;
+        this.fullname = fullname;
+        this.username = username;
     }
 }
