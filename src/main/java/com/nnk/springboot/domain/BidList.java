@@ -11,7 +11,7 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bid_list_id")
-    private Integer BidListId;
+    private Integer bidListId;
 
     @Column(name = "account")
     private String account;
@@ -87,11 +87,11 @@ public class BidList {
     }
 
     public Integer getBidListId() {
-        return BidListId;
+        return bidListId;
     }
 
     public void setBidListId(Integer bidListId) {
-        this.BidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public String getAccount() {
