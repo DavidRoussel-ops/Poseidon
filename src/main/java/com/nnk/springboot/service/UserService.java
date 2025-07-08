@@ -36,6 +36,15 @@ public class UserService {
     }
 
     /**
+     * Méthode renvoyant un utilisateur grace à son username
+     * @param username
+     * @return User
+     */
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    /**
      * Méthode d'ajout d'un utilisateur
      * @param user
      * @return User
