@@ -37,35 +37,46 @@ public class BidListServiceTest {
     public void testAddBidList() throws Exception {
         BidList bidList = new BidList();
         bidListService.addBidList(bidList);
+        int lastId = 0;
+        Iterable<BidList> allBid = bidListService.getBidLists();
+        for (BidList bidList1 : allBid) {
+            lastId = bidList1.getBidListId();
+        }
         assertThat(bidList).isNotNull();
+        bidListService.deleteBidListById(lastId);
     }
 
     @Test
     public void testGetBidListById() throws Exception {
+        BidList bidList = new BidList();
+        bidListService.addBidList(bidList);
         Iterable<BidList> allBidLists = bidListService.getBidLists();
         int lastId = 0;
-        for (BidList bidList : allBidLists) {
-            lastId = bidList.getBidListId();
+        for (BidList bidList1 : allBidLists) {
+            lastId = bidList1.getBidListId();
         }
         Optional<BidList> bidListOptional = bidListService.getBidListById(lastId);
-        BidList bidList = bidListOptional.get();
+        BidList bidList2 = bidListOptional.get();
         assertThat(bidList).isNotNull();
-        Assertions.assertEquals(lastId, bidList.getBidListId());
+        Assertions.assertEquals(lastId, bidList2.getBidListId());
+        bidListService.deleteBidListById(lastId);
     }
 
     @Test
     public void testDeleteBidListById() throws Exception {
+        BidList bidList = new BidList();
+        bidListService.addBidList(bidList);
         Iterable<BidList> allBidLists = bidListService.getBidLists();
         int lastId = 0;
         int counter = 0;
-        for (BidList bidList : allBidLists) {
-            lastId = bidList.getBidListId();
+        for (BidList bidList1 : allBidLists) {
+            lastId = bidList1.getBidListId();
             counter ++;
         }
         counter --;
         Optional<BidList> bidListOptional = bidListService.getBidListById(lastId);
-        BidList bidList = bidListOptional.get();
-        bidListService.deleteBidListById(bidList.getBidListId());
+        BidList bidList2 = bidListOptional.get();
+        bidListService.deleteBidListById(bidList2.getBidListId());
         assertThat(allBidLists).isNotNull();
         Assertions.assertEquals(0, counter);
     }

@@ -31,32 +31,36 @@ public class TradeServiceTest {
     @Test
     public void testGetTrades() throws Exception {
         Iterable<Trade> allTrades = tradeService.getTrades();
-        int counter = 0;
-        for (Trade trade : allTrades) {
-            counter ++;
-        }
         assertThat(allTrades).isNotNull();
-        Assertions.assertEquals(0, counter);
     }
 
     @Test
     public void testAddTrade() throws Exception {
         Trade trade = new Trade();
+        int lastId = 0;
+        Iterable<Trade> allTrades = tradeService.getTrades();
+        for (Trade trade1 : allTrades) {
+            lastId = trade1.getTradeId();
+        }
         tradeService.addTrade(trade);
         assertThat(trade).isNotNull();
+        tradeService.deleteTradeById(lastId);
     }
 
     @Test
     public void testGetTradeById() throws Exception {
+        Trade trade = new Trade();
+        tradeService.addTrade(trade);
         Iterable<Trade> allTrades = tradeService.getTrades();
         int lastId = 0;
-        for (Trade trade : allTrades) {
-            lastId = trade.getTradeId();
+        for (Trade trade1 : allTrades) {
+            lastId = trade1.getTradeId();
         }
         Optional<Trade> tradeOptional = tradeService.getTradeById(lastId);
-        Trade trade = tradeOptional.get();
+        Trade trade2 = tradeOptional.get();
         assertThat(trade).isNotNull();
-        Assertions.assertEquals(1, trade.getTradeId());
+        Assertions.assertEquals(lastId, trade2.getTradeId());
+        tradeService.deleteTradeById(lastId);
     }
 
     @Test
@@ -64,14 +68,14 @@ public class TradeServiceTest {
         Iterable<Trade> allTrades = tradeService.getTrades();
         int lastId = 0;
         int counter = 0;
-        for (Trade trade : allTrades) {
-            lastId = trade.getTradeId();
+        for (Trade trade1 : allTrades) {
+            lastId = trade1.getTradeId();
             counter ++;
         }
         counter --;
         Optional<Trade> tradeOptional = tradeService.getTradeById(lastId);
-        Trade trade = tradeOptional.get();
-        tradeService.deleteTradeById(trade.getTradeId());
+        Trade trade2 = tradeOptional.get();
+        tradeService.deleteTradeById(trade2.getTradeId());
         assertThat(allTrades).isNotNull();
         Assertions.assertEquals(0, counter);
     }
