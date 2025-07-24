@@ -40,7 +40,7 @@ public class SpringSecurityConfig {
                 )
                 .userDetailsService(customUserDetailsService)
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/app-logout")
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
