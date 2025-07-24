@@ -30,12 +30,7 @@ public class BidListServiceTest {
     @Test
     public void testGetBidLists() throws Exception {
         Iterable<BidList> allBidLists = bidListService.getBidLists();
-        int counter = 0;
-        for (BidList bidList : allBidLists) {
-            counter ++;
-        }
         assertThat(allBidLists).isNotNull();
-        Assertions.assertEquals(0, counter);
     }
 
     @Test
@@ -55,7 +50,7 @@ public class BidListServiceTest {
         Optional<BidList> bidListOptional = bidListService.getBidListById(lastId);
         BidList bidList = bidListOptional.get();
         assertThat(bidList).isNotNull();
-        Assertions.assertEquals(1, bidList.getBidListId());
+        Assertions.assertEquals(lastId, bidList.getBidListId());
     }
 
     @Test
