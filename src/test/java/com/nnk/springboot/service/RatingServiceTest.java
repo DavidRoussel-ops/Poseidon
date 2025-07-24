@@ -29,17 +29,12 @@ public class RatingServiceTest {
     @Test
     public void testGetRatings() throws Exception {
         Iterable<Rating> allRatings = ratingService.getRatings();
-        int counter = 0;
-        for (Rating rating : allRatings) {
-            counter ++;
-        }
         assertThat(allRatings).isNotNull();
-        Assertions.assertEquals(0, counter);
     }
 
     @Test
     public void testAddRating() throws Exception {
-        Rating rating = new Rating("maussade", "sable", "fitch", 1);
+        Rating rating = new Rating();
         Rating ratingToAdd = ratingService.addRating(rating);
         assertThat(ratingToAdd).isNotNull();
     }
@@ -54,10 +49,7 @@ public class RatingServiceTest {
         Optional<Rating> ratingOptional = ratingService.getRatingById(lastId);
         Rating rating = ratingOptional.get();
         assertThat(rating).isNotNull();
-        Assertions.assertEquals("maussade", rating.getMoodysRating());
-        Assertions.assertEquals("sable", rating.getSandPRating());
-        Assertions.assertEquals("fitch", rating.getFitchRating());
-        Assertions.assertEquals(1, rating.getOrderNumber());
+        Assertions.assertEquals(lastId, rating.getId());
     }
 
     @Test

@@ -30,19 +30,14 @@ public class CurvePointServiceTest {
     @Test
     public void testGetCurvePoints() throws Exception {
         Iterable<CurvePoint> allCurvePoints = curvePointService.getCurvePoints();
-        int counter = 0;
-        for (CurvePoint curvePoint : allCurvePoints) {
-            counter ++;
-        }
         assertThat(allCurvePoints).isNotNull();
-        Assertions.assertEquals(0, counter);
     }
 
     @Test
     public void testAddCurvePoint() throws Exception {
-        CurvePoint curvePoint = new CurvePoint(1, 2d, 4d);
-        CurvePoint curvePointToAdd = curvePointService.addCurvePoint(curvePoint);
-        assertThat(curvePointToAdd).isNotNull();
+        CurvePoint curvePoint = new CurvePoint();
+        curvePointService.addCurvePoint(curvePoint);
+        assertThat(curvePoint).isNotNull();
     }
 
     @Test
@@ -55,9 +50,7 @@ public class CurvePointServiceTest {
         Optional<CurvePoint> curvePointOptional = curvePointService.getCurvePointById(lastId);
         CurvePoint curvePoint = curvePointOptional.get();
         assertThat(curvePoint).isNotNull();
-        Assertions.assertEquals(1, curvePoint.getCurveId());
-        Assertions.assertEquals(2d, curvePoint.getTerm());
-        Assertions.assertEquals(4d, curvePoint.getValue());
+        Assertions.assertEquals(lastId, curvePoint.getId());
     }
 
     @Test

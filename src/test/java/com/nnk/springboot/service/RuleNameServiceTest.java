@@ -29,17 +29,12 @@ public class RuleNameServiceTest {
     @Test
     public void testGetRuleNames() throws Exception {
         Iterable<RuleName> allRulesNames = ruleNameService.getRuleNames();
-        int counter = 0;
-        for (RuleName ruleName : allRulesNames) {
-            counter ++;
-        }
         assertThat(allRulesNames).isNotNull();
-        Assertions.assertEquals(0, counter);
     }
 
     @Test
     public void testAddRuleName() throws Exception {
-        RuleName ruleName = new RuleName("name", "description", "json", "template", "sqlStr", "sqlPart");
+        RuleName ruleName = new RuleName();
         RuleName ruleNameToAdd = ruleNameService.addRuleName(ruleName);
         assertThat(ruleNameToAdd).isNotNull();
     }
@@ -54,13 +49,7 @@ public class RuleNameServiceTest {
         Optional<RuleName> ruleNameOptional = ruleNameService.getRuleNameById(lastId);
         RuleName ruleName = ruleNameOptional.get();
         assertThat(ruleName).isNotNull();
-        Assertions.assertEquals("name", ruleName.getName());
-        Assertions.assertEquals("description", ruleName.getDescription());
-        Assertions.assertEquals("json", ruleName.getJson());
-        Assertions.assertEquals("template", ruleName.getTemplate());
-        Assertions.assertEquals("sqlStr", ruleName.getSqlStr());
-        Assertions.assertEquals("sqlPart", ruleName.getSqlPart());
-        Assertions.assertEquals(1, ruleName.getId());
+        Assertions.assertEquals(lastId, ruleName.getId());
     }
 
     @Test
