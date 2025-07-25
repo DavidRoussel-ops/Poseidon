@@ -37,10 +37,12 @@ public class RuleNameServiceTest {
         RuleName ruleName = new RuleName();
         RuleName ruleNameToAdd = ruleNameService.addRuleName(ruleName);
         assertThat(ruleNameToAdd).isNotNull();
+        ruleNameService.deleteRuleNameById(ruleName.getId());
     }
 
     @Test
     public void testGetRuleNameById() throws Exception {
+        ruleNameService.addRuleName(new RuleName());
         Iterable<RuleName> allRuleNames = ruleNameService.getRuleNames();
         int lastId = 0;
         for (RuleName ruleName : allRuleNames) {
@@ -50,10 +52,12 @@ public class RuleNameServiceTest {
         RuleName ruleName = ruleNameOptional.get();
         assertThat(ruleName).isNotNull();
         Assertions.assertEquals(lastId, ruleName.getId());
+        ruleNameService.deleteRuleNameById(lastId);
     }
 
     @Test
     public void testDeleteRuleNameById() throws Exception {
+        ruleNameService.addRuleName(new RuleName());
         Iterable<RuleName> allRuleNames = ruleNameService.getRuleNames();
         int lastId = 0;
         int counter = 0;

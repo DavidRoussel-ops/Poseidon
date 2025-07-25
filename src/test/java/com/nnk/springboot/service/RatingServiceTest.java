@@ -37,10 +37,12 @@ public class RatingServiceTest {
         Rating rating = new Rating();
         Rating ratingToAdd = ratingService.addRating(rating);
         assertThat(ratingToAdd).isNotNull();
+        ratingService.deleteRatingById(rating.getId());
     }
 
     @Test
     public void testGetRatingById() throws Exception {
+        ratingService.addRating(new Rating());
         Iterable<Rating> allRatings = ratingService.getRatings();
         int lastId = 0;
         for (Rating rating : allRatings) {
@@ -50,10 +52,12 @@ public class RatingServiceTest {
         Rating rating = ratingOptional.get();
         assertThat(rating).isNotNull();
         Assertions.assertEquals(lastId, rating.getId());
+        ratingService.deleteRatingById(lastId);
     }
 
     @Test
     public void testDeleteRatingById() throws Exception {
+        ratingService.addRating(new Rating());
         Iterable<Rating> allRatings = ratingService.getRatings();
         int lastId = 0;
         int counter = 0;
