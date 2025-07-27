@@ -23,7 +23,6 @@ public class BidList {
     @Column(name = "type")
     private String type;
 
-    @NotBlank(message = "Le champ bidQuantity doit être renseigner")
     @Column(name = "bidQuantity")
     private Double bidQuantity;
 
