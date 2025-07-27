@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
@@ -13,12 +15,15 @@ public class BidList {
     @Column(name = "bid_list_id")
     private Integer bidListId;
 
+    @NotBlank(message = "Le champ account doit être renseigner")
     @Column(name = "account")
     private String account;
 
+    @NotBlank(message = "Le champ type doit être renseigner")
     @Column(name = "type")
     private String type;
 
+    @NotBlank(message = "Le champ bidQuantity doit être renseigner")
     @Column(name = "bidQuantity")
     private Double bidQuantity;
 
