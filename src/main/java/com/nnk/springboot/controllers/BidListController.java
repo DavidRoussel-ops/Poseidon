@@ -41,7 +41,7 @@ public class BidListController {
             //model.addAttribute("bidlists", bidListService.getBidLists());
             return "redirect:/bidList/list";
         }
-        return "bidList/add";
+        return "redirect:/bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
