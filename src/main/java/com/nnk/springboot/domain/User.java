@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,13 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "Le nom d'utilisateur est obligatoire")
     private String username;
-    @NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "Le mots de passe est obligatoire")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$!?%^&+=]).{8,}$",
+            message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial (@#$!?%^&+=)"
+    )
     private String password;
-    @NotBlank(message = "FullName is mandatory")
+    @NotBlank(message = "Le nom complet est obligatoire")
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
+    @NotBlank(message = "Le rôle est obligatoire")
     private String role;
 
     public Integer getId() {
