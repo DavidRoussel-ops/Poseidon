@@ -129,7 +129,11 @@ public class BidListControllerTest {
         when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
         when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
         when(bidListService.addBidList(bidList)).thenReturn(bidList);
-        mockMvc.perform(post("/bidList/validate"))
+        when(bindingResult.hasErrors()).thenReturn(false);
+        mockMvc.perform(post("/bidList/validate")
+                        .param("account", "Account")
+                        .param("type", "Type")
+                        .param("bidQuantity", String.valueOf(20.0)))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/bidList/list"));
     }
