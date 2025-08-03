@@ -220,6 +220,7 @@ public class BidListControllerTest {
     @WithMockUser
     public void testDeleteBid() throws Exception {
         BidList bidList = new BidList();
+        bidList.setBidListId(1);
         bidList.setAccount("Account");
         bidList.setType("Type");
         bidList.setBidQuantity(20.0);
@@ -236,8 +237,9 @@ public class BidListControllerTest {
         when(securityService.isAuthenticated()).thenReturn(true);
         when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
         when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(bidListService.getBidListById(1)).thenReturn(Optional.of(bidList));
         doNothing().when(bidListService).deleteBidListById(anyInt());
-        mockMvc.perform(get("/bidList/delete/" + anyInt()))
+        mockMvc.perform(get("/bidList/delete/" + 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/bidList/list"));
     }
