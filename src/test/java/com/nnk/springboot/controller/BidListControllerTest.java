@@ -160,4 +160,29 @@ public class BidListControllerTest {
                 .andExpect(redirectedUrl("/bidList/add"));
     }
 
+    @Test
+    @WithMockUser
+    public void testShowUpdateForm() throws Exception {
+        BidList bidList = new BidList();
+        bidList.setAccount("Account");
+        bidList.setType("Type");
+        bidList.setBidQuantity(20.0);
+        bidListService.addBidList(bidList);
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        mockMvc.perform(get("/bidList/update"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("bidList"));
+    }
+
 }
