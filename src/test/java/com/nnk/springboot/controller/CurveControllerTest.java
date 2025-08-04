@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -161,6 +160,51 @@ public class CurveControllerTest {
         mockMvc.perform(get("/curvePoint/update/" + 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("curvePoint"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testUpdateCurvePoint() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(curvePointService.getCurvePointById(anyInt())).thenReturn(Optional.ofNullable(mock(CurvePoint.class)));
+        mockMvc.perform(post("/curvePoint/update/" + 1)
+                        .param("term", String.valueOf(10.0))
+                        .param("value", String.valueOf(20.0)))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/curvePoint/list"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testDeleteCurvePoint() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(curvePointService.getCurvePointById(anyInt())).thenReturn(Optional.ofNullable(mock(CurvePoint.class)));
+        doNothing().when(curvePointService).deleteCurvePointById(anyInt());
+        mockMvc.perform(get("/curvePoint/delete/" + 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/curvePoint/list"));
     }
 
 
