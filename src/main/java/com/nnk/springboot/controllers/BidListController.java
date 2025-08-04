@@ -38,7 +38,7 @@ public class BidListController {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
             bidListService.addBidList(bid);
-            //model.addAttribute("bidlists", bidListService.getBidLists());
+            model.addAttribute("bidlists", bidListService.getBidLists());
             return "redirect:/bidList/list";
         }
         return "redirect:/bidList/add";
