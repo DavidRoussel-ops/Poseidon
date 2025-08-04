@@ -167,11 +167,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testUpdateBid() throws Exception {
-        BidList bidList = new BidList();
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
-        bidListService.addBidList(bidList);
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
@@ -196,12 +191,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testDeleteBid() throws Exception {
-        BidList bidList = new BidList();
-        bidList.setBidListId(1);
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
-        bidListService.addBidList(bidList);
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
@@ -214,7 +203,7 @@ public class BidListControllerTest {
         when(securityService.isAuthenticated()).thenReturn(true);
         when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
         when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
-        when(bidListService.getBidListById(1)).thenReturn(Optional.of(bidList));
+        when(bidListService.getBidListById(anyInt())).thenReturn(Optional.ofNullable(mock(BidList.class)));
         doNothing().when(bidListService).deleteBidListById(anyInt());
         mockMvc.perform(get("/bidList/delete/" + 1))
                 .andExpect(status().is3xxRedirection())
