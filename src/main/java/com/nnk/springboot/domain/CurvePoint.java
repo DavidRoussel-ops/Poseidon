@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
@@ -20,9 +21,11 @@ public class CurvePoint {
     @Column(name = "asOfDate")
     private Timestamp asOfDate;
 
+    @NotNull(message = "Le champ term doit être renseigner")
     @Column(name = "term")
     private Double term;
 
+    @NotNull(message = "Le champ value doit être renseigner")
     @Column(name = "value")
     private Double value;
 
