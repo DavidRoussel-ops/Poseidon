@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
@@ -40,9 +39,6 @@ public class BidListControllerTest {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-
-    @MockBean
-    private BindingResult bindingResult;
 
     @MockBean
     private SecurityService securityService;
@@ -87,12 +83,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testAddBidForm() throws Exception {
-        ArrayList<BidList> bidLists = new ArrayList<>();
-        BidList bidList = new BidList();
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
-        bidLists.add(bidList);
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
@@ -113,10 +103,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testValidate() throws Exception {
-        BidList bidList = new BidList();
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
@@ -129,8 +115,6 @@ public class BidListControllerTest {
         when(securityService.isAuthenticated()).thenReturn(true);
         when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
         when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
-        when(bidListService.addBidList(bidList)).thenReturn(bidList);
-        when(bindingResult.hasErrors()).thenReturn(false);
         mockMvc.perform(post("/bidList/validate")
                         .param("account", "Account")
                         .param("type", "Type")
@@ -142,8 +126,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testValidateNull() throws Exception {
-        BidList bidList = new BidList();
-        bidList.setAccount("");
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
@@ -164,11 +146,6 @@ public class BidListControllerTest {
     @Test
     @WithMockUser
     public void testShowUpdateForm() throws Exception {
-        BidList bidList = new BidList();
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
-        bidListService.addBidList(bidList);
         User user = new User();
         user.setFullname("test");
         user.setUsername("test");
