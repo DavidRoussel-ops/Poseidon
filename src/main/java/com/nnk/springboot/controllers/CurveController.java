@@ -28,7 +28,8 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addCurvePointForm(CurvePoint curvePoint) {
+    public String addCurvePointForm(Model model) {
+        model.addAttribute("curvePoint", new CurvePoint());
         return "curvePoint/add";
     }
 
@@ -40,7 +41,7 @@ public class CurveController {
             model.addAttribute("curvePoints", curvePointService.getCurvePoints());
             return "redirect:/curvePoint/list";
         }
-        return "curvePoint/add";
+        return "redirect:/curvePoint/add";
     }
 
     @GetMapping("/curvePoint/update/{id}")
