@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "rating")
@@ -11,15 +13,19 @@ public class Rating {
     @Column(name = "id")
     private Integer id;
 
+    @NotBlank(message = "Le champ moodysRating doit être renseigner")
     @Column(name = "moodysRating")
     private String moodysRating;
 
+    @NotBlank(message = "Le champ sandPRating doit être renseigner")
     @Column(name = "sandPRating")
     private String sandPRating;
 
+    @NotBlank(message = "Le champ fitchRating doit être renseigner")
     @Column(name = "fitchRating")
     private String fitchRating;
 
+    @NotNull(message = "Le champ orderNumber doit être renseigner")
     @Column(name = "orderNumber")
     private Integer orderNumber;
 
