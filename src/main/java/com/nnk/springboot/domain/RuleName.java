@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "rulename")
@@ -11,21 +12,27 @@ public class RuleName {
     @Column(name = "id")
     private Integer id;
 
+    @NotBlank(message = "Le champ name doit être renseigner")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Le champ description doit être renseigner")
     @Column(name = "description")
     private String description;
 
+    @NotBlank(message = "Le champ json doit être renseigner")
     @Column(name = "json")
     private String json;
 
+    @NotBlank(message = "Le champ template doit être renseigner")
     @Column(name = "template")
     private String template;
 
+    @NotBlank(message = "Le champ sqlStr doit être renseigner")
     @Column(name = "sqlStr")
     private String sqlStr;
 
+    @NotBlank(message = "Le champ sqlPart doit être renseigner")
     @Column(name = "sqlPart")
     private String sqlPart;
 
