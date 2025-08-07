@@ -59,10 +59,6 @@ public class RatingControllerTest {
     public void testHome() throws Exception {
         ArrayList<Rating> ratings = new ArrayList<>();
         Rating rating = new Rating();
-        rating.setFitchRating("FitchRating");
-        rating.setMoodysRating("MoodysRating");
-        rating.setSandPRating("SandPRating");
-        rating.setOrderNumber(1);
         ratings.add(rating);
         User user = new User();
         user.setFullname("test");

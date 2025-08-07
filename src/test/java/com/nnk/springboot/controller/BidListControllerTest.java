@@ -58,9 +58,6 @@ public class BidListControllerTest {
     public void testHome() throws Exception {
         ArrayList<BidList> bidLists = new ArrayList<>();
         BidList bidList = new BidList();
-        bidList.setAccount("Account");
-        bidList.setType("Type");
-        bidList.setBidQuantity(20.0);
         bidLists.add(bidList);
         User user = new User();
         user.setFullname("test");

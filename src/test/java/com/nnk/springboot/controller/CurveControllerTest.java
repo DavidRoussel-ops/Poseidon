@@ -58,8 +58,6 @@ public class CurveControllerTest {
     public void testHome() throws Exception {
         ArrayList<CurvePoint> curvePoints = new ArrayList<>();
         CurvePoint curvePoint = new CurvePoint();
-        curvePoint.setTerm(10.0);
-        curvePoint.setValue(20.0);
         curvePoints.add(curvePoint);
         User user = new User();
         user.setFullname("test");
