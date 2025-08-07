@@ -28,7 +28,8 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName ruleName) {
+    public String addRuleForm(Model model) {
+        model.addAttribute("ruleName", new RuleName());
         return "ruleName/add";
     }
 
@@ -40,7 +41,7 @@ public class RuleNameController {
             model.addAttribute("ruleNames", ruleNameService.getRuleNames());
             return "redirect:/ruleName/list";
         }
-        return "ruleName/add";
+        return "redirect:/ruleName/add";
     }
 
     @GetMapping("/ruleName/update/{id}")
