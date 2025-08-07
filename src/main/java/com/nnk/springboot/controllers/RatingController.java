@@ -41,7 +41,7 @@ public class RatingController {
             model.addAttribute("ratings", ratingService.getRatings());
             return "redirect:/rating/list";
         }
-        return "rating/add";
+        return "redirect:/rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
