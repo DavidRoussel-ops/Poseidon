@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
@@ -14,12 +16,15 @@ public class Trade {
     @Column(name = "trade_id")
     private Integer tradeId;
 
+    @NotBlank(message = "Le champ account doit être renseigner")
     @Column(name = "account")
     private String account;
 
+    @NotBlank(message = "Le champ type doit être renseigner")
     @Column(name = "type")
     private String type;
 
+    @NotNull(message = "Le champ buyQuantity doit être renseigner")
     @Column(name = "buyQuantity")
     private Double buyQuantity;
 
