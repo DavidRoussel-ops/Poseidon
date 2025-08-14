@@ -28,7 +28,8 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addTradeForm(Trade trade) {
+    public String addTradeForm(Model model) {
+        model.addAttribute("trade", new Trade());
         return "trade/add";
     }
 
@@ -40,7 +41,7 @@ public class TradeController {
             model.addAttribute("trades", tradeService.getTrades());
             return "redirect:/trade/list";
         }
-        return "trade/add";
+        return "redirect:/trade/add";
     }
 
     @GetMapping("/trade/update/{id}")
