@@ -34,7 +34,7 @@ public class RuleNameServiceTest {
 
     @Test
     public void testAddRuleName() throws Exception {
-        RuleName ruleName = new RuleName();
+        RuleName ruleName = new RuleName("name", "desc", "json", "template", "sqlStr", "sqlPart");
         RuleName ruleNameToAdd = ruleNameService.addRuleName(ruleName);
         assertThat(ruleNameToAdd).isNotNull();
         ruleNameService.deleteRuleNameById(ruleName.getId());
@@ -42,7 +42,7 @@ public class RuleNameServiceTest {
 
     @Test
     public void testGetRuleNameById() throws Exception {
-        ruleNameService.addRuleName(new RuleName());
+        ruleNameService.addRuleName(new RuleName("name", "desc", "json", "template", "sqlStr", "sqlPart"));
         Iterable<RuleName> allRuleNames = ruleNameService.getRuleNames();
         int lastId = 0;
         for (RuleName ruleName : allRuleNames) {
@@ -57,7 +57,7 @@ public class RuleNameServiceTest {
 
     @Test
     public void testDeleteRuleNameById() throws Exception {
-        ruleNameService.addRuleName(new RuleName());
+        ruleNameService.addRuleName(new RuleName("name", "desc", "json", "template", "sqlStr", "sqlPart"));
         Iterable<RuleName> allRuleNames = ruleNameService.getRuleNames();
         int lastId = 0;
         int counter = 0;

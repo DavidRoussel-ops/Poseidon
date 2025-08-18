@@ -36,6 +36,9 @@ public class BidListServiceTest {
     @Test
     public void testAddBidList() throws Exception {
         BidList bidList = new BidList();
+        bidList.setAccount("Account");
+        bidList.setType("Type");
+        bidList.setBidQuantity(20.0);
         bidListService.addBidList(bidList);
         int lastId = 0;
         Iterable<BidList> allBid = bidListService.getBidLists();
@@ -49,6 +52,9 @@ public class BidListServiceTest {
     @Test
     public void testGetBidListById() throws Exception {
         BidList bidList = new BidList();
+        bidList.setAccount("Account");
+        bidList.setType("Type");
+        bidList.setBidQuantity(20.0);
         bidListService.addBidList(bidList);
         Iterable<BidList> allBidLists = bidListService.getBidLists();
         int lastId = 0;
@@ -65,6 +71,9 @@ public class BidListServiceTest {
     @Test
     public void testDeleteBidListById() throws Exception {
         BidList bidList = new BidList();
+        bidList.setAccount("Account");
+        bidList.setType("Type");
+        bidList.setBidQuantity(20.0);
         bidListService.addBidList(bidList);
         Iterable<BidList> allBidLists = bidListService.getBidLists();
         int lastId = 0;

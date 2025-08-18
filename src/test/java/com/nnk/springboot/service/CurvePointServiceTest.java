@@ -36,6 +36,8 @@ public class CurvePointServiceTest {
     @Test
     public void testAddCurvePoint() throws Exception {
         CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setTerm(10.0);
+        curvePoint.setValue(20.0);
         curvePointService.addCurvePoint(curvePoint);
         assertThat(curvePoint).isNotNull();
     }

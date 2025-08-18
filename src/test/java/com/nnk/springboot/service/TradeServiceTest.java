@@ -36,7 +36,7 @@ public class TradeServiceTest {
 
     @Test
     public void testAddTrade() throws Exception {
-        Trade trade = new Trade();
+        Trade trade = new Trade("Account", "Type", 20.0);
         int lastId = 0;
         Iterable<Trade> allTrades = tradeService.getTrades();
         for (Trade trade1 : allTrades) {
@@ -49,7 +49,7 @@ public class TradeServiceTest {
 
     @Test
     public void testGetTradeById() throws Exception {
-        Trade trade = new Trade();
+        Trade trade = new Trade("Account", "Type", 20.0);
         tradeService.addTrade(trade);
         Iterable<Trade> allTrades = tradeService.getTrades();
         int lastId = 0;

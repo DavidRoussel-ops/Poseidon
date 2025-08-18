@@ -35,6 +35,10 @@ public class RatingServiceTest {
     @Test
     public void testAddRating() throws Exception {
         Rating rating = new Rating();
+        rating.setMoodysRating("Moodys");
+        rating.setSandPRating("Sand");
+        rating.setFitchRating("Fitch");
+        rating.setOrderNumber(20);
         Rating ratingToAdd = ratingService.addRating(rating);
         assertThat(ratingToAdd).isNotNull();
         ratingService.deleteRatingById(rating.getId());
@@ -42,7 +46,7 @@ public class RatingServiceTest {
 
     @Test
     public void testGetRatingById() throws Exception {
-        ratingService.addRating(new Rating());
+        ratingService.addRating(new Rating("Moodys", "Sand", "Fitch", 20));
         Iterable<Rating> allRatings = ratingService.getRatings();
         int lastId = 0;
         for (Rating rating : allRatings) {
@@ -57,7 +61,7 @@ public class RatingServiceTest {
 
     @Test
     public void testDeleteRatingById() throws Exception {
-        ratingService.addRating(new Rating());
+        ratingService.addRating(new Rating("Moodys", "Sand", "Fitch", 20));
         Iterable<Rating> allRatings = ratingService.getRatings();
         int lastId = 0;
         int counter = 0;
