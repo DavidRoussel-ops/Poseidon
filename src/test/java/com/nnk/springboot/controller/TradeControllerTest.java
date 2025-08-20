@@ -179,7 +179,7 @@ public class TradeControllerTest {
         when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
         when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
         when(tradeService.getTradeById(anyInt())).thenReturn(Optional.ofNullable(mock(Trade.class)));
-        mockMvc.perform(post("/trade/validate")
+        mockMvc.perform(post("/trade/update/" + 1)
                         .param("account", "Account")
                         .param("type", "Type")
                         .param("buyQuantity", String.valueOf(20.0)))
