@@ -50,13 +50,12 @@ public class UserController {
             model.addAttribute("users", userService.getUsers());
             return "redirect:/user/list";
         }
-        return "user/add";
+        return "redirect:/user/add";
     }
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
     }
@@ -65,7 +64,7 @@ public class UserController {
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "user/update";
+            return "redirect:/user/update";
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
