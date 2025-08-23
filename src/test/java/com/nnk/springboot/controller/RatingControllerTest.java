@@ -190,6 +190,27 @@ public class RatingControllerTest {
 
     @Test
     @WithMockUser
+    public void testUpdateRatingHasError() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(ratingService.getRatingById(anyInt())).thenReturn(Optional.ofNullable(mock(Rating.class)));
+        mockMvc.perform(post("/rating/update/" + 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/rating/update"));
+    }
+
+    @Test
+    @WithMockUser
     public void testDeleteRating() throws Exception {
         User user = new User();
         user.setFullname("test");

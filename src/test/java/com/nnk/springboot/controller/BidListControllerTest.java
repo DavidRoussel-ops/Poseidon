@@ -187,6 +187,28 @@ public class BidListControllerTest {
 
     @Test
     @WithMockUser
+    public void testUpdateBidHasError() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(bidListService.getBidListById(anyInt())).thenReturn(Optional.ofNullable(mock(BidList.class)));
+        mockMvc.perform(post("/bidList/update/" + 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/bidList/update"));
+    }
+
+
+    @Test
+    @WithMockUser
     public void testDeleteBid() throws Exception {
         User user = new User();
         user.setFullname("test");

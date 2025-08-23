@@ -194,6 +194,27 @@ public class RuleNameControllerTest {
 
     @Test
     @WithMockUser
+    public void testUpdateRuleNameHasError() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(ruleNameService.getRuleNameById(anyInt())).thenReturn(Optional.ofNullable(mock(RuleName.class)));
+        mockMvc.perform(post("/ruleName/update/" + 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/ruleName/update"));
+    }
+
+    @Test
+    @WithMockUser
     public void testDeleteRuleName() throws Exception {
         User user = new User();
         user.setFullname("test");

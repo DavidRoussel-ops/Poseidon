@@ -189,6 +189,27 @@ public class TradeControllerTest {
 
     @Test
     @WithMockUser
+    public void testUpdateTradeHasError() throws Exception {
+        User user = new User();
+        user.setFullname("test");
+        user.setUsername("test");
+        user.setPassword(encoder.encode("test"));
+        user.setRole("ADMIN");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("ADMIN", user);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetails.getUsername()).thenReturn(user.getUsername());
+        when(securityService.isAuthenticated()).thenReturn(true);
+        when(securityService.getCurrentUserDetails()).thenReturn(userDetails);
+        when(userService.getUserByUsername(userDetails.getUsername())).thenReturn(user);
+        when(tradeService.getTradeById(anyInt())).thenReturn(Optional.ofNullable(mock(Trade.class)));
+        mockMvc.perform(post("/trade/update/" + 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/trade/update"));
+    }
+
+    @Test
+    @WithMockUser
     public void testDeleteTrade() throws Exception {
         User user = new User();
         user.setFullname("test");
