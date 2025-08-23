@@ -57,7 +57,7 @@ public class RatingController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
-            return "rating/update";
+            return "redirect:/rating/update";
         }
         rating.setId(id);
         ratingService.addRating(rating);

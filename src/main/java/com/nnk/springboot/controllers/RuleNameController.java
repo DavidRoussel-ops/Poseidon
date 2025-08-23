@@ -57,7 +57,7 @@ public class RuleNameController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         if (result.hasErrors()) {
-            return "ruleName/update";
+            return "redirect:/ruleName/update";
         }
         ruleName.setId(id);
         ruleNameService.addRuleName(ruleName);

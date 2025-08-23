@@ -57,7 +57,7 @@ public class CurveController {
                                    BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {
-            return "curvePoint/update";
+            return "redirect:/curvePoint/update";
         }
         curvePoint.setId(id);
         curvePointService.addCurvePoint(curvePoint);
