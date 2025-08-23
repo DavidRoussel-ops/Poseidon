@@ -1,18 +1,13 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -20,8 +15,8 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    /*@MockBean
-    UserRepository userRepository;*/
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Test
     public void testGetUsers() throws Exception {
@@ -29,51 +24,72 @@ public class UserServiceTest {
         assertThat(users).isNotNull();
     }
 
-    /*@Test
+    @Test
     public void testGetUserById() throws Exception {
-        when(userRepository.findById(anyInt())).thenReturn(Optional.of(mock(User.class)));
-        userService.getUserById(anyInt());
-    }*/
+        User user = new User();
+        user.setFullname("Test");
+        user.setUsername("Test");
+        user.setPassword(encoder.encode("Test123!"));
+        user.setRole("ADMIN");
+        userService.addUser(user);
+        userService.getUserById(1);
+        int lastId = 0;
+        Iterable<User> allUsers = userService.getUsers();
+        for (User user1 : allUsers) {
+            lastId = user1.getId();
+        }
+        assertThat(user).isNotNull();
+        userService.deleteUserById(lastId);
+    }
 
-    /*@Test
+    @Test
     public void testGetUserByUsername() throws Exception {
         User user = new User();
         user.setFullname("Test");
-        user.setUsername("TestUsername");
-        user.setPassword("Test123!");
+        user.setUsername("Test");
+        user.setPassword(encoder.encode("Test123!"));
         user.setRole("ADMIN");
         userService.addUser(user);
-        when(userService.getUserByUsername("TestUsername")).thenReturn(user);
-        userService.deleteUserById(user.getId());
-    }*/
+        userService.getUserByUsername("Test");
+        int lastId = 0;
+        Iterable<User> allUsers = userService.getUsers();
+        for (User user1 : allUsers) {
+            lastId = user1.getId();
+        }
+        assertThat(user).isNotNull();
+        userService.deleteUserById(lastId);
+    }
 
     @Test
     public void testAddUser() throws Exception {
         User user = new User();
         user.setFullname("Test");
         user.setUsername("Test");
-        user.setPassword("Test123!");
+        user.setPassword(encoder.encode("Test123!"));
         user.setRole("ADMIN");
         userService.addUser(user);
         assertThat(user).isNotNull();
         userService.deleteUserById(user.getId());
     }
 
-    /*@Test
+    @Test
     public void testDeleteUserById() throws Exception {
         User user = new User();
         user.setFullname("Test");
-        user.setUsername("TestUsername");
-        user.setPassword("Test123!");
+        user.setUsername("Test");
+        user.setPassword(encoder.encode("Test123!"));
         user.setRole("ADMIN");
         userService.addUser(user);
         Iterable<User> allUsers = userService.getUsers();
         int counter = 0;
+        int lastId = 0;
         for (User user1 : allUsers) {
             counter ++;
+            lastId = user1.getId();
         }
-        userService.deleteUserById(user.getId());
+        userService.deleteUserById(lastId);
+        counter --;
         Assertions.assertEquals(0, counter);
-    }*/
+    }
 
 }
