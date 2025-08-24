@@ -68,8 +68,13 @@ public class UserServiceTest {
         user.setPassword(encoder.encode("Test123!"));
         user.setRole("ADMIN");
         userService.addUser(user);
+        int lastId = 0;
+        Iterable<User> allUsers = userService.getUsers();
+        for (User user1 : allUsers) {
+            lastId = user1.getId();
+        }
         assertThat(user).isNotNull();
-        userService.deleteUserById(user.getId());
+        userService.deleteUserById(lastId);
     }
 
     @Test
