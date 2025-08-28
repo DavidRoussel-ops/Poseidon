@@ -4,9 +4,25 @@
     <title> Spring Boot </title>
     <link rel="stylesheet" href="/css/styles.css"/>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position : absolute;
+            top : 35%;
+            bottom : 45%;
+            right : 38%;
+            left : 38%;
+        }
+
+        .margRight {
+            margin-right: 31px;
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid d-flex align-items-center justify-content-center">
+<div class="container-fluid d-flex align-items-center justify-content-center center">
     <div class="p-5 my-5 border d-flex flex-column align-items-center justify-content-center">
         <h3>Login with Username and Password</h3>
         <div class="log">
@@ -17,7 +33,7 @@
                 <div class="row">
                     <div class="mt-5 w-100">
                         <div class="mb-3">
-                            <label for="username" class="visually-hidden">User: </label>
+                            <label for="username" class="visually-hidden margRight">User: </label>
                             <input type="text" class="form-control" id="username" name="username" aria-required="true" required/>
                         </div>
                         <div class="mb-3">
@@ -27,7 +43,7 @@
                     </div>
                 </div>
                 <div class="mt-5 d-flex justify-content-center">
-                    <button class="btn btn-primary w-100" type="submit">Sign in</button>
+                    <button class="btn btn-primary w-100" type="submit">Login</button>
                 </div>
             </form>
         </div>
