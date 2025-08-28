@@ -3,11 +3,36 @@
 <head>
     <title> Spring Boot </title>
     <link rel="stylesheet" href="/css/styles.css"/>
+    <style>
+        .center {
+            align-items: center;
+            position : absolute;
+            top : 35%;
+            bottom : 45%;
+            right : 38%;
+            left : 38%;
+        }
+
+        a {
+            text-decoration : none;
+            color : blue;
+        }
+
+        .ml30 {
+            margin-left: 30%;
+        }
+
+        .ml15 {
+            margin-left: 15%;
+        }
+    </style>
 </head>
 <body>
-<h3> HOME PAGE </h3>
-<p>
-    <a href="/app/login">Login</a> or create one <a href="/user/list">User management</a>
-</p>
+<div class="center">
+    <h3 class="ml30"> HOME PAGE </h3>
+    <p class="ml15">
+        <a href="/app/login">Login</a> or create one <a href="/user/list">User management</a>
+    </p>
+</div>
 </body>
 </html>
