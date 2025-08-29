@@ -1,5 +1,6 @@
 package com.nnk.springboot.service;
 
+import com.nnk.springboot.configuration.CustomUserDetailsService;
 import com.nnk.springboot.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,12 @@ public class UserServiceTest {
     @Autowired
     BCryptPasswordEncoder encoder;
 
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
+
     @Test
     public void testGetUsers() throws Exception {
         Iterable<User> users = userService.getUsers();
@@ -33,6 +40,7 @@ public class UserServiceTest {
         user.setRole("ADMIN");
         userService.addUser(user);
         userService.getUserById(1);
+        customUserDetailsService.loadUserByUsername("Test");
         int lastId = 0;
         Iterable<User> allUsers = userService.getUsers();
         for (User user1 : allUsers) {
@@ -51,6 +59,8 @@ public class UserServiceTest {
         user.setRole("ADMIN");
         userService.addUser(user);
         userService.getUserByUsername("Test");
+        securityService.isAuthenticated();
+        securityService.getCurrentUserDetails();
         int lastId = 0;
         Iterable<User> allUsers = userService.getUsers();
         for (User user1 : allUsers) {
