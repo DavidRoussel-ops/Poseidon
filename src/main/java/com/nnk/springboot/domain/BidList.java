@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
+/**
+ * Entity représentant l'objet BidList en base
+ */
 @Entity
 @Table(name = "bidlist")
 public class BidList {

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity représentant l'objet User en base
+ */
 @Entity
 @Data
 @NoArgsConstructor

@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-
+/**
+ * Entity représentant l'objet Trade en base
+ */
 @Entity
 @Table(name = "trade")
 public class Trade {

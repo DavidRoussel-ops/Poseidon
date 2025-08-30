@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Entity représentant l'objet Rating en base
+ */
 @Entity
 @Table(name = "rating")
 public class Rating {

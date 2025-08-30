@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
-
+/**
+ * Entity représentant l'objet CurvePoint en base
+ */
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
