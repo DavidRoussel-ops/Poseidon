@@ -29,6 +29,11 @@ public class LoginController {
     @Autowired
     private SecurityService securityService;
 
+    /**
+     * Méthode get de la page login
+     * @param httpSession
+     * @return ModelAndView
+     */
     @GetMapping("login")
     public ModelAndView login(HttpSession httpSession) {
         ModelAndView mavLogin = new ModelAndView();
@@ -48,6 +53,10 @@ public class LoginController {
         return mavBidlist;
     }
 
+    /**
+     * Méthode get de la page secure/article-details
+     * @return ModelAndView
+     */
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -56,6 +65,10 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * Methode get de la page error
+     * @return ModelAndView
+     */
     @GetMapping("error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();

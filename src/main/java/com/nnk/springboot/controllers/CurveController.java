@@ -15,27 +15,42 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CurveController {
-    // TODO: Inject Curve Point service
+
     @Autowired
     private CurvePointService curvePointService;
 
+    /**
+     * Méthode get de la page home de l'objet CurvePoint
+     * @param model
+     * @return String
+     */
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
         model.addAttribute("curvePoints", curvePointService.getCurvePoints());
         return "curvePoint/list";
     }
 
+    /**
+     * Méthode get de la page add de l'objet CurvePoint
+     * @param model
+     * @return String
+     */
     @GetMapping("/curvePoint/add")
     public String addCurvePointForm(Model model) {
         model.addAttribute("curvePoint", new CurvePoint());
         return "curvePoint/add";
     }
 
+    /**
+     * Méthode post de l'objet CurvePoint
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
         if (!result.hasErrors()) {
             curvePointService.addCurvePoint(curvePoint);
             model.addAttribute("curvePoints", curvePointService.getCurvePoints());
@@ -44,18 +59,30 @@ public class CurveController {
         return "redirect:/curvePoint/add";
     }
 
+    /**
+     * Méthode get de la page d'udpate de l'objet CurvePoint
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
         CurvePoint curvePoint = curvePointService.getCurvePointById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint id : " + id));
         model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/update";
     }
 
+    /**
+     * Méthode post de l'update de l'objet CurvePoint
+     * @param id
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                                    BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {
             return "redirect:/curvePoint/update";
         }
@@ -65,9 +92,14 @@ public class CurveController {
         return "redirect:/curvePoint/list";
     }
 
+    /**
+     * Méthode get de la page de suppression de l'objet CurvePoint
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
         CurvePoint curvePoint = curvePointService.getCurvePointById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint id : " + id));
         curvePointService.deleteCurvePointById(curvePoint.getId());
         model.addAttribute("curvePoints", curvePointService.getCurvePoints());

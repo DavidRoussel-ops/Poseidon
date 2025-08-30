@@ -27,6 +27,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Méthode get de la page list de l'objet User
+     * @param model
+     * @return String
+     */
     @RequestMapping("/user/list")
     public String home(Model model)
     {
@@ -34,12 +39,24 @@ public class UserController {
         return "user/list";
     }
 
+    /**
+     * Méthode get de la page add de l'objet User
+     * @param model
+     * @return String
+     */
     @GetMapping("/user/add")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "user/add";
     }
 
+    /**
+     * Méthode post de l'objet User
+     * @param user
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         logger.info("Utilisateur sur le point d'être enregistrer : {}", user);
@@ -53,6 +70,12 @@ public class UserController {
         return "redirect:/user/add";
     }
 
+    /**
+     * Méthode get de la page d'update de l'objet User
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
@@ -60,6 +83,14 @@ public class UserController {
         return "user/update";
     }
 
+    /**
+     * Méthode post de la page d'update de l'objet User
+     * @param id
+     * @param user
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -75,6 +106,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    /**
+     * Méthode get de la page de suppression de l'objet User
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));

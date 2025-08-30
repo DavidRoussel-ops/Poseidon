@@ -15,27 +15,42 @@ import jakarta.validation.Valid;
 
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
+
     @Autowired
     private RatingService ratingService;
 
+    /**
+     * Méthode get de la page home de l'objet Rating
+     * @param model
+     * @return String
+     */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
         model.addAttribute("ratings", ratingService.getRatings());
         return "rating/list";
     }
 
+    /**
+     * Méthode get de la page add de l'objet Rating
+     * @param model
+     * @return String
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Model model) {
         model.addAttribute("rating", new Rating());
         return "rating/add";
     }
 
+    /**
+     * Méthode post de l'objet Rating
+     * @param rating
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
         if (!result.hasErrors()) {
             ratingService.addRating(rating);
             model.addAttribute("ratings", ratingService.getRatings());
@@ -44,18 +59,30 @@ public class RatingController {
         return "redirect:/rating/add";
     }
 
+    /**
+     * Méthode get de la page d'update de l'objet Rating
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
         Rating rating = ratingService.getRatingById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating id : " + id));
         model.addAttribute("rating", rating);
         return "rating/update";
     }
 
+    /**
+     * Méthode post de l'update de l'objet Rating
+     * @param id
+     * @param rating
+     * @param result
+     * @param model
+     * @return String
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
             return "redirect:/rating/update";
         }
@@ -64,9 +91,14 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
+    /**
+     * Méthode get de la page de suppression de l'objet Rating
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
         Rating rating = ratingService.getRatingById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating id : " + id));
         ratingService.deleteRatingById(rating.getId());
         model.addAttribute("ratings", ratingService.getRatings());
